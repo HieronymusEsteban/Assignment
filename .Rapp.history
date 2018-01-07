@@ -1,0 +1,626 @@
+ls()
+setwd("/Documents/Coursera_DataScience/GettingCleaningData/Assignment")#
+#
+list.files("/Documents/Coursera_DataScience/GettingCleaningData/Assignment")
+x_train <- read.table("./UCI HAR Dataset/train/X_train.txt")#
+#
+class(x_train)#
+dim(x_train)#
+colnames(x_train)#
+str(x_train)
+y_train <- read.table("./UCI HAR Dataset/train/Y_train.txt")#
+#
+class(y_train)#
+dim(y_train)
+subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt")#
+#
+class(subject_train)#
+dim(subject_train)
+x_test <- read.table("./UCI HAR Dataset/test/X_test.txt")#
+#
+class(x_test)#
+dim(x_test)
+y_test <- read.table("./UCI HAR Dataset/test/Y_test.txt")#
+#
+class(y_test)#
+dim(y_test)
+subject_test <- read.table("./UCI HAR Dataset/test/subject_test.txt")#
+#
+class(subject_test)#
+dim(subject_test)
+features <- read.table("./UCI HAR Dataset/features.txt")#
+#
+class(features)#
+dim(features)#
+colnames(features)#
+head(features)
+colnames(x_train) <- features$V2#
+#
+str(x_train)#
+#
+colnames(x_test) <- features$V2#
+#
+str(x_test)#
+#
+colnames(y_train) <- "y_label"#
+#
+colnames(y_test) <- "y_label"#
+#
+colnames(subject_train) <- "subject"#
+str(subject_train)#
+#
+colnames(subject_test) <- "subject"#
+str(subject_test)
+dim(subject_train)#
+dim(x_train)#
+dim(y_train)#
+#
+training_set <- cbind(subject_train, x_train, y_train)#
+str(training_set)#
+#
+dim(training_set)
+dim(subject_test)#
+dim(x_test)#
+dim(y_test)#
+#
+test_set <- cbind(subject_test, x_test, y_test)#
+#
+dim(test_set)
+activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")#
+#
+colnames(activity_labels) <- c("label", "activity")#
+#
+activity_labels
+indices_list_train <- vector("list",length(activity_labels$label))#
+for(i in 1:length(activity_labels$label)){#
+	indices_list_train[[i]] <- which(activity_labels$label[i] == training_set$y_train)#
+	}
+training_set$activity <- rep(0, dim(training_set)[1])#
+for(i in 1:length(activity_labels$label)){#
+	training_set$activity[indices_list_train[[i]]] <- as.character(activity_labels$activity[i])#
+	}
+head(training_set$activity[training_set$y_train == 1])#
+tail(training_set$activity[training_set$y_train == 1])#
+head(training_set$activity[training_set$y_train == 2])#
+head(training_set$activity[training_set$y_train == 3])#
+head(training_set$activity[training_set$y_train == 4])#
+head(training_set$activity[training_set$y_train == 5])#
+head(training_set$activity[training_set$y_train == 6])
+head(training_set$activity[training_set$y == 1])#
+tail(training_set$activity[training_set$y == 1])#
+head(training_set$activity[training_set$y == 2])#
+head(training_set$activity[training_set$y == 3])#
+head(training_set$activity[training_set$y == 4])#
+head(training_set$activity[training_set$y == 5])#
+head(training_set$activity[training_set$y == 6])
+head(training_set$activity[training_set$y_label == 1])#
+tail(training_set$activity[training_set$y_label == 1])#
+head(training_set$activity[training_set$y_label == 2])#
+head(training_set$activity[training_set$y_label == 3])#
+head(training_set$activity[training_set$y_label == 4])#
+head(training_set$activity[training_set$y_label == 5])#
+head(training_set$activity[training_set$y_label == 6])
+head(colnames(training_set))
+tail(colnames(training_set))
+head(training_set$y_label)
+indices_list_train <- vector("list",length(activity_labels$label))#
+for(i in 1:length(activity_labels$label)){#
+	indices_list_train[[i]] <- which(activity_labels$label[i] == training_set$y_label)#
+	}
+training_set$activity <- rep(0, dim(training_set)[1])#
+for(i in 1:length(activity_labels$label)){#
+	training_set$activity[indices_list_train[[i]]] <- as.character(activity_labels$activity[i])#
+	}
+head(training_set$activity[training_set$y_label == 1])#
+tail(training_set$activity[training_set$y_label == 1])#
+head(training_set$activity[training_set$y_label == 2])#
+head(training_set$activity[training_set$y_label == 3])#
+head(training_set$activity[training_set$y_label == 4])#
+head(training_set$activity[training_set$y_label == 5])#
+head(training_set$activity[training_set$y_label == 6])#
+#
+activity_labels
+indices_list_test <- vector("list",length(activity_labels$label))#
+for(i in 1:length(activity_labels$label)){#
+	indices_list_test[[i]] <- which(activity_labels$label[i] == test_set$y_label)	#
+	}
+test_set$activity <- rep(0, dim(test_set)[1])#
+for(i in 1:length(activity_labels$label)){#
+	test_set$activity[indices_list_test[[i]]] <- as.character(activity_labels$activity[i])#
+	}
+tail(colnames(test_set))
+head(test_set$activity[test_set$y_test == 1])#
+tail(test_set$activity[test_set$y_test == 1])#
+head(test_set$activity[test_set$y_test == 2])#
+head(test_set$activity[test_set$y_test == 3])#
+head(test_set$activity[test_set$y_test == 4])#
+head(test_set$activity[test_set$y_test == 5])#
+head(test_set$activity[test_set$y_test == 6])#
+#
+activity_labels
+head(test_set$activity[test_set$y_label == 1])#
+tail(test_set$activity[test_set$y_label == 1])#
+head(test_set$activity[test_set$y_label == 2])#
+head(test_set$activity[test_set$y_label == 3])#
+head(test_set$activity[test_set$y_label == 4])#
+head(test_set$activity[test_set$y_label == 5])#
+head(test_set$activity[test_set$y_label == 6])
+activity_labels
+dim(training_set)#
+head(colnames(training_set))#
+tail(colnames(training_set))#
+#
+dim(test_set)#
+head(colnames(test_set))#
+tail(colnames(test_set))
+sum(colnames(training_set) == colnames(test_set))
+which(!colnames(training_set) == colnames(test_set))
+sum(!colnames(training_set) == colnames(test_set))
+Data_TrainingAndTest <- rbind(training_set, test_set)
+dim(training_set)#
+dim(test_set)
+dim(Data_TrainingAndTest)
+dim(training_set)[1] + dim(test_set)[1]
+dim(features)
+head(features)
+head(features)
+head(features, n = 20)
+grep("De", "Depp")
+grep("De", "papDepp")
+grep("De", c("papDepp", "dubbel", "Delphin")
+)
+library(dplyr)
+?grep
+grepl("De", c("papDepp", "dubbel", "Delphin"))
+grepl(c("De", "du"), c("papDepp", "dubbel", "Delphin"))
+grepl("De", c("papDepp", "dubbel", "Delphin")) & grepl("Du", c("papDepp", "dubbel", "Delphin"))
+grepl("De", c("papDepp", "dubbel", "Delphin")) | grepl("Du", c("papDepp", "dubbel", "Delphin"))
+grepl("De", c("papDepp", "dubbel", "Delphin")) | grepl("du", c("papDepp", "dubbel", "Delphin"))
+head(features)
+Data_TrainingAndTest %>% select(grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))) -> Data_TrainTest_Select
+library(dplyr)
+Data_TrainingAndTest %>% select(colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]) -> Data_TrainTest_Select
+colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest))]
+colnames(Data_TrainingAndTest)[grep("mean", colnames(Data_TrainingAndTest))]
+colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]
+Data_TrainingAndTest %>% select(colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]) -> Data_TrainTest_Select
+dim(select(Data_TrainingAndTest, colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]))
+colnames(Data_TrainingAndTest)[grepl("mean", colnames(Data_TrainingAndTest))]
+colnames(Data_TrainingAndTest)[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]
+duplicated(colnames(Data_TrainingAndTest)[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))])
+sum(duplicated(colnames(Data_TrainingAndTest)[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]))
+dim(select(Data_TrainingAndTest, colnames(Data_TrainingAndTest)[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))])
+)
+dim(Data_TrainingAndTest[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))])
+DataTrainTest_Select <- Data_TrainingAndTest[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]
+duplicated(colnames(DataTrainTest_Select))
+dim(Data_TrainingAndTest)#
+dim(DataTrainTest_Select)
+DataTrainTest_MeanStd <- Data_TrainingAndTest[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]#
+#
+duplicated(colnames(DataTrainTest_MeanStd))#
+#
+dim(Data_TrainingAndTest)#
+dim(DataTrainTest_MeanStd)
+colnames(DataTrainTest_MeanStd)
+features
+colnames(DataTrainTest_MeanStd)
+dim(DataTrainTest_MeanStd)
+x_train
+str(x_train)
+colnames(x_train)
+head(colnames(DataTrainTest_MeanStd))
+tail(colnames(DataTrainTest_MeanStd))
+which("subject", colnames(DataTrainTest_MeanStd))
+which("subject" == colnames(DataTrainTest_MeanStd))
+rm(list=ls())
+setwd("/Documents/Coursera_DataScience/GettingCleaningData/Assignment")#
+#
+list.files("/Documents/Coursera_DataScience/GettingCleaningData/Assignment")#
+x_train <- read.table("./UCI HAR Dataset/train/X_train.txt")#
+#
+class(x_train)#
+dim(x_train)#
+colnames(x_train)#
+str(x_train)#
+y_train <- read.table("./UCI HAR Dataset/train/Y_train.txt")#
+#
+class(y_train)#
+dim(y_train)#
+subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt")#
+#
+class(subject_train)#
+dim(subject_train)#
+x_test <- read.table("./UCI HAR Dataset/test/X_test.txt")#
+#
+class(x_test)#
+dim(x_test)#
+y_test <- read.table("./UCI HAR Dataset/test/Y_test.txt")#
+#
+class(y_test)#
+dim(y_test)#
+subject_test <- read.table("./UCI HAR Dataset/test/subject_test.txt")#
+#
+class(subject_test)#
+dim(subject_test)#
+features <- read.table("./UCI HAR Dataset/features.txt")#
+#
+class(features)#
+dim(features)#
+colnames(features)#
+head(features)
+colnames(x_train) <- features$V2#
+#
+str(x_train)#
+#
+colnames(x_test) <- features$V2#
+#
+str(x_test)
+colnames(y_train) <- "y_label"#
+#
+colnames(y_test) <- "y_label"#
+#
+colnames(subject_train) <- "subject"#
+str(subject_train)#
+#
+colnames(subject_test) <- "subject"#
+str(subject_test)
+dim(subject_train)#
+dim(x_train)#
+dim(y_train)
+training_set <- cbind(subject_train, x_train, y_train)#
+#
+dim(training_set)
+head(colnames(training_set))
+dim(subject_test)#
+dim(x_test)#
+dim(y_test)
+test_set <- cbind(subject_test, x_test, y_test)
+dim(test_set)
+head(colnames(test_set))
+activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")#
+#
+colnames(activity_labels) <- c("label", "activity")#
+#
+activity_labels
+indices_list_train <- vector("list",length(activity_labels$label))#
+for(i in 1:length(activity_labels$label)){#
+	indices_list_train[[i]] <- which(activity_labels$label[i] == training_set$y_label)#
+	}
+training_set$activity <- rep(0, dim(training_set)[1])#
+for(i in 1:length(activity_labels$label)){#
+	training_set$activity[indices_list_train[[i]]] <- as.character(activity_labels$activity[i])#
+	}
+head(training_set$activity[training_set$y_label == 1])#
+tail(training_set$activity[training_set$y_label == 1])#
+head(training_set$activity[training_set$y_label == 2])#
+head(training_set$activity[training_set$y_label == 3])#
+head(training_set$activity[training_set$y_label == 4])#
+head(training_set$activity[training_set$y_label == 5])#
+head(training_set$activity[training_set$y_label == 6])
+activity_labels
+tail(colnames(training_set))
+head(colnames(training_set))
+indices_list_test <- vector("list",length(activity_labels$label))#
+for(i in 1:length(activity_labels$label)){#
+	indices_list_test[[i]] <- which(activity_labels$label[i] == test_set$y_label)	#
+	}
+test_set$activity <- rep(0, dim(test_set)[1])#
+for(i in 1:length(activity_labels$label)){#
+	test_set$activity[indices_list_test[[i]]] <- as.character(activity_labels$activity[i])#
+	}
+tail(colnames(test_set))
+head(colnames(test_set))
+head(test_set$activity[test_set$y_label == 1])#
+tail(test_set$activity[test_set$y_label == 1])#
+head(test_set$activity[test_set$y_label == 2])#
+head(test_set$activity[test_set$y_label == 3])#
+head(test_set$activity[test_set$y_label == 4])#
+head(test_set$activity[test_set$y_label == 5])#
+head(test_set$activity[test_set$y_label == 6])#
+#
+activity_labels
+head(colnames(test_set))#
+tail(colnames(test_set))
+dim(training_set)#
+head(colnames(training_set))#
+tail(colnames(training_set))
+dim(test_set)#
+head(colnames(test_set))#
+tail(colnames(test_set))
+sum(colnames(training_set) == colnames(test_set))
+sum(!colnames(training_set) == colnames(test_set))
+dim(training_set)#
+dim(test_set)
+Data_TrainingAndTest <- rbind(training_set, test_set)#
+dim(Data_TrainingAndTest)
+dim(training_set)[1] + dim(test_set)[1]
+dim(features)#
+#
+head(features, n = 20)
+colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]
+DataTrainTest_MeanStd <- Data_TrainingAndTest[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]
+duplicated(colnames(DataTrainTest_MeanStd))
+dim(Data_TrainingAndTest)#
+dim(DataTrainTest_MeanStd)
+library(dplyr)
+DataTrainTest_MeanStd %>% mutate(subject = Data_TrainingAndTest$subject, activity = Data_TrainingAndTest$activity)
+DataTrainTest_MeanStd %>% mutate(subject = Data_TrainingAndTest$subject, activity = Data_TrainingAndTest$activity) -> DataTrainTest_MeanStd
+colnames(DataTrainTest_MeanStd)
+head(colnames(test_set))
+tail(colnames(test_set))
+head(colnames(Data_TrainingAndTest))
+tail(colnames(Data_TrainingAndTest))
+DataTrainTest_MeanStd %>% mutate(subject = Data_TrainingAndTest$subject, y_label = Data_TrainingAndTest$y_label, activity = Data_TrainingAndTest$activity) -> DataTrainTest_MeanStd
+dim(DataTrainTest_MeanStd)
+colnames(DataTrainTest_MeanStd)
+tail(colnames(DataTrainTest_MeanStd))
+which("subject" == colnames(DataTrainTest_MeanStd))
+colnames(DataTrainTest_MeanStd)
+grep("mean", colnames(Data_TrainingAndTest)
+)
+colnames(Data_TrainingAndTest)[grep("mean", colnames(Data_TrainingAndTest))]
+colnamesMean <- colnames(Data_TrainingAndTest)[grep("mean", colnames(Data_TrainingAndTest))]
+grep("std", colnames(Data_TrainingAndTest))
+colnames(Data_TrainingAndTest)[grep("std", colnames(Data_TrainingAndTest))]
+colnamesStd <- colnames(Data_TrainingAndTest)[grep("std", colnames(Data_TrainingAndTest))]
+sum(colnamesMean == colnamesStd)
+sum(colnamesMean %in% colnamesStd)
+sum(colnamesStd %in% colnamesMean)
+Data_TrainingAndTest %>% select(colnamesMean) -> TestFrame
+duplicated(colnamesMean)
+colnamesMean
+duplicated("depp", "depp")
+identical("depp", "depp")
+any(duplicated(c("depp", "depp")))
+duplicated(c("depp", "depp"))
+any(duplicated(colnamesMean))
+length(colnamesMean)
+length(unique(colnamesMean))
+class(colnamesMean)
+(.packages())
+Data_TrainingAndTest %>% select(colnamesMean[1]) -> TestFrame
+colnamesMean[1]
+Data_TrainingAndTest %>% select(tBodyAcc-mean()-X) -> TestFrame
+Data_TrainingAndTest %>% select(c(tBodyAcc-mean()-X)) -> TestFrame
+Data_TrainingAndTest %>% select(colnamesMean[2]) -> TestFrame
+colnamesMean[2]
+Data_TrainingAndTest %>% select(tBodyAcc-mean()-Y) -> TestFrame
+select(Data_TrainingAndTest, tBodyAcc-mean()-Y)
+select(Data_TrainingAndTest, (tBodyAcc-mean()-Y))
+select(Data_TrainingAndTest, (tBodyAcc_mean()_Y))
+select(Data_TrainingAndTest, (tBodyAcc_mean_Y))
+?gsub
+features %>% gsub("()", "") %>% gsub("-", "_") -> features_clean
+features %>% gsub("(", "") %>% gsub("-", "_") -> features_clean
+?gsub
+gsub("()", "", "tBodyAcc-mean()-Y")
+gsub("\\()", "", "tBodyAcc-mean()-Y")
+features %>% gsub("\\()", "") %>% gsub("-", "_") -> features_clean
+features %>% gsub("\\()", "") %>% gsub("\\-", "_") -> features_clean
+features %>% gsub("\\()", "") -> featurestest
+gsub("\\()", "", features) -> featurestest
+featuresSemiClean <- gsub("\\()", "", features)#
+features_Clean <- gsub("\\-", "_", featuresSemiClea
+featuresSemiClean <- gsub("\\()", "", features)#
+features_Clean <- gsub("\\-", "_", featuresSemiClean)
+featuresSemiClean <- gsub("\\()", "", features)#
+features_Clean <- gsub("\\-", "_", featuresSemiClean)
+features
+features %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} -> featuresTest
+featuresTest
+library(stringr)
+features %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} -> featuresTest
+featuresTest
+features
+detach("package:stringr", unload = TRUE)
+(.(packages))
+loadhistory(file = ".Rhistory")
+history()
+features
+features1 <- gsub("\\()", "", features)#
+features2 <- gsub("\\(", "", features1)#
+features3 <- gsub("\\)", "", features2)#
+features4 <- gsub("\\-", "_", features3)#
+features_Clean <- gsub("\\,", "", features4)
+features_Clean
+features2
+features1 <- gsub("()", "", features)
+features
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} -> featuresTest
+featuresTest
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} -> {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}-> features_CleanV2
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} %>% {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}-> features_CleanV2
+features_CleanV2
+features
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} %>% {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}-> features_Clean
+features_Clean
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} %>% {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}%>% {gsub("?_", "", .)}-> features_Clean
+features_Clean
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} %>% {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}%>% {gsub("_?", "", .)}-> features_Clean
+features_Clean
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} %>% {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}%>% {gsub("$_", "", .)}-> features_Clean
+features_Clean
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} %>% {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}%>% {gsub("_$", "", .)}-> features_Clean
+features_Clean
+setwd("/Documents/Coursera_DataScience/GettingCleaningData/Assignment")#
+#
+list.files("/Documents/Coursera_DataScience/GettingCleaningData/Assignment")#
+x_train <- read.table("./UCI HAR Dataset/train/X_train.txt")#
+#
+class(x_train)#
+dim(x_train)#
+colnames(x_train)#
+str(x_train)#
+y_train <- read.table("./UCI HAR Dataset/train/Y_train.txt")#
+#
+class(y_train)#
+dim(y_train)#
+subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt")#
+#
+class(subject_train)#
+dim(subject_train)#
+x_test <- read.table("./UCI HAR Dataset/test/X_test.txt")#
+#
+class(x_test)#
+dim(x_test)#
+y_test <- read.table("./UCI HAR Dataset/test/Y_test.txt")#
+#
+class(y_test)#
+dim(y_test)#
+subject_test <- read.table("./UCI HAR Dataset/test/subject_test.txt")#
+#
+class(subject_test)#
+dim(subject_test)#
+features <- read.table("./UCI HAR Dataset/features.txt")#
+#
+class(features)#
+dim(features)#
+colnames(features)#
+head(features)
+library(dplyr)#
+#
+features$V2 %>% {gsub("\\()", "", .)} %>% {gsub("\\-", "_", .)} %>% {gsub("\\(", "_", .)} %>% {gsub("\\)", "_", .)} %>% {gsub("\\,", "", .)}%>% {gsub("_$", "", .)}-> features_Clean#
+#
+features_Clean
+colnames(x_train) <- features_Clean#
+#
+str(x_train)#
+#
+colnames(x_test) <- features_Clean#
+#
+str(x_test)#
+#
+colnames(y_train) <- "y_label"#
+#
+colnames(y_test) <- "y_label"#
+#
+colnames(subject_train) <- "subject"#
+str(subject_train)#
+#
+colnames(subject_test) <- "subject"#
+str(subject_test)
+# training_set:#
+#
+dim(subject_train)#
+dim(x_train)#
+dim(y_train)#
+#
+training_set <- cbind(subject_train, x_train, y_train)#
+#
+dim(training_set)#
+#
+head(colnames(training_set))#
+#
+dim(subject_test)#
+dim(x_test)#
+dim(y_test)#
+#
+test_set <- cbind(subject_test, x_test, y_test)#
+#
+dim(test_set)#
+head(colnames(test_set))
+# Create vectors of label names for both training_set and test_set: #
+#
+activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")#
+#
+colnames(activity_labels) <- c("label", "activity")#
+#
+activity_labels#
+# For the training set: #
+#
+indices_list_train <- vector("list",length(activity_labels$label))#
+for(i in 1:length(activity_labels$label)){#
+	indices_list_train[[i]] <- which(activity_labels$label[i] == training_set$y_label)#
+	}#
+training_set$activity <- rep(0, dim(training_set)[1])#
+for(i in 1:length(activity_labels$label)){#
+	training_set$activity[indices_list_train[[i]]] <- as.character(activity_labels$activity[i])#
+	}#
+# Verify if the activity names match the y labels: #
+#
+head(training_set$activity[training_set$y_label == 1])#
+tail(training_set$activity[training_set$y_label == 1])#
+head(training_set$activity[training_set$y_label == 2])#
+head(training_set$activity[training_set$y_label == 3])#
+head(training_set$activity[training_set$y_label == 4])#
+head(training_set$activity[training_set$y_label == 5])#
+head(training_set$activity[training_set$y_label == 6])#
+#
+activity_labels#
+head(colnames(training_set))#
+tail(colnames(training_set))
+indices_list_test <- vector("list",length(activity_labels$label))#
+for(i in 1:length(activity_labels$label)){#
+	indices_list_test[[i]] <- which(activity_labels$label[i] == test_set$y_label)	#
+	}#
+test_set$activity <- rep(0, dim(test_set)[1])#
+for(i in 1:length(activity_labels$label)){#
+	test_set$activity[indices_list_test[[i]]] <- as.character(activity_labels$activity[i])#
+	}#
+# Verify if the activity names match the y labels: #
+#
+head(test_set$activity[test_set$y_label == 1])#
+tail(test_set$activity[test_set$y_label == 1])#
+head(test_set$activity[test_set$y_label == 2])#
+head(test_set$activity[test_set$y_label == 3])#
+head(test_set$activity[test_set$y_label == 4])#
+head(test_set$activity[test_set$y_label == 5])#
+head(test_set$activity[test_set$y_label == 6])#
+#
+activity_labels#
+head(colnames(test_set))#
+tail(colnames(test_set))
+dim(training_set)#
+head(colnames(training_set))#
+tail(colnames(training_set))#
+#
+dim(test_set)#
+head(colnames(test_set))#
+tail(colnames(test_set))
+# Check if the column names of the data frames to be merged are the same: #
+sum(colnames(training_set) == colnames(test_set))#
+#
+sum(!colnames(training_set) == colnames(test_set))
+# Check if the number of columns in the two data frames are the same: #
+dim(training_set)#
+dim(test_set)
+# Merge the to data frames: #
+Data_TrainingAndTest <- rbind(training_set, test_set)#
+dim(Data_TrainingAndTest)
+dim(training_set)#
+dim(test_set)#
+dim(training_set)[1] + dim(test_set)[1]
+head(colnames(Data_TrainingAndTest))#
+tail(colnames(Data_TrainingAndTest))
+dim(features_Clean)#
+#
+head(features_Clean, n = 20)
+colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]
+DataTrainTest_MeanStd <- Data_TrainingAndTest[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]
+duplicated(colnames(DataTrainTest_MeanStd))
+dim(Data_TrainingAndTest)#
+dim(DataTrainTest_MeanStd)
+Data_TrainingAndTest %>% select(colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]) -> SelectFrame
+colnames(Data_TrainingAndTest)[c(grep("mean", colnames(Data_TrainingAndTest)), grep("std", colnames(Data_TrainingAndTest)))]
+Data_TrainingAndTest %>% select(tBodyAcc_mean_X) -> SelectFrame
+select(tBodyAcc_mean_X, Data_TrainingAndTest) -> SelectFrame
+head(colnames(Data_TrainingAndTest))
+select(Data_TrainingAndTest, tBodyAcc_mean_X) -> SelectFrame
+select(Data_TrainingAndTest, (tBodyAcc_mean_X)) -> SelectFrame
+select(Data_TrainingAndTest, (tBodyAcc_mean_Z)) -> SelectFrame
+select(Data_TrainingAndTest, tBodyAcc_mean_Z) -> SelectFrame
+select(Data_TrainingAndTest, subject) -> SelectFrame
+select(Data_TrainingAndTest, "subject") -> SelectFrame
+DataTrainTest_MeanStd <- Data_TrainingAndTest[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]
+TrainTest_MeanStd <- Data_TrainingAndTest[grepl("mean", colnames(Data_TrainingAndTest)) | grepl("std", colnames(Data_TrainingAndTest))]
+duplicated(colnames(TrainTest_MeanStd))
+dim(Data_TrainingAndTest)#
+dim(TrainTest_MeanStd)
+TrainTest_MeanStd %>% mutate(subject = Data_TrainingAndTest$subject, y_label = Data_TrainingAndTest$y_label, activity = Data_TrainingAndTest$activity) -> TrainTest_MeanStd_Complete
+dim(TrainTest_MeanStd_Complete)
+colnames(TrainTest_MeanStd_Complete)
+dim(TrainTest_MeanStd_Complete)#
+colnames(TrainTest_MeanStd_Complete)#
+tail(colnames(TrainTest_MeanStd_Complete))
+TrainTest_MeanStd_Complete$subject
