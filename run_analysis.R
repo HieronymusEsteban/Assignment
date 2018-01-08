@@ -259,7 +259,7 @@ head(colnames(TrainTest_MeanStd_Complete))
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 
-# In order to calculate the means of each variable for each activity and subject (meaning we will have a mean for every variable-activity-subject combination), create an additional variable indicating activity-subject-combinations (I call this variable 'factorCombinations even though my code does not actually convert the activity and subject variables into factors (not necessary). The new variable 'factorCombination' will be converted into a factor though): 
+# In order to calculate the means of each variable for each activity and subject (meaning we will have a mean for every variable-activity-subject combination), create an additional column vector indicating activity-subject-combinations (I call this vector 'factorCombinations even though my code does not actually convert the activity and subject character vectors into factors (not necessary). The new vector 'factorCombination' will be converted into a factor though): 
 
 
 
@@ -275,7 +275,7 @@ tail(TrainTest_MeanStd_Complete$factorCombinations)
 length(unique(TrainTest_MeanStd_Complete$factorCombinations))
 
 
-# Convert the new variable 'factorCombinations' into a factor: 
+# Convert the new character vector 'factorCombinations' into a factor: 
 
 class(TrainTest_MeanStd_Complete$factorCombinations)
 
@@ -289,7 +289,7 @@ head(TrainTest_MeanStd_Complete$factorCombinations)
 tail(TrainTest_MeanStd_Complete$factorCombinations)
 
 
-# Take a couple of samples to check if the 'factorCombinations' variable has been attributed correctly, i.e. if its entries match the entries of the variables 'subject' and 'activity': 
+# Take a couple of samples to check if the 'factorCombinations' vector has been attributed correctly, i.e. if its entries match the entries of the vectors 'subject' and 'activity': 
 
 columnsSubActFactorcom <- c(which(colnames(TrainTest_MeanStd_Complete) == "subject"), which(colnames(TrainTest_MeanStd_Complete) == "activity"), which(colnames(TrainTest_MeanStd_Complete) == "factorCombinations"))
 
@@ -343,12 +343,12 @@ for(i in 1:dim(TrainTest_MeanStd)[2]){
 }
 
 
-# Add the variable 'factorCombinations' to the new data frame: 
+# Add the vector 'factorCombinations' to the new data frame: 
 
 VariableMeans_ActivitySubject$factorCombinations <- names(tapply(TrainTest_MeanStd_Complete$tBodyAcc_mean_X, TrainTest_MeanStd_Complete$factorCombinations, mean, simplify = FALSE))
 
 
-# Split the 'factorCombinations' variable of the new data frame into activity and subject labels:  
+# Split the 'factorCombinations' vector of the new data frame into activity and subject labels:  
 
 splitActivitySubject <- strsplit(VariableMeans_ActivitySubject$factorCombinations, "_")
 
@@ -376,7 +376,7 @@ splitActivitySubject[[179]][1:(length(splitActivitySubject[[179]]))-1]
 
 
 
-# Add subject and activity variables to their respective columns: 
+# Add subject and activity vectors to their respective columns: 
 
 for(i in 1:length(splitActivitySubject)){
 	
