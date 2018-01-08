@@ -106,12 +106,12 @@ within the variable names and are attributed to a new data frame 'TrainTest_Mean
 are then added and the data frame is renamed 'TrainTest_MeanStd_Complete'.
 
 ### Summarizing the Extracted Means and Standard Deviations by taking their means (Means of Means and Means of Standard Deviations)
-for for every variable-subject-activity combination: 
+### for for every variable-subject-activity combination: 
 TrainTest_MeanStd_Complete contains several data points for every variable-subject-activity combination. These data can thus be 
 summarized by taking the mean value for every such combination and storing it in a new data frame 'VariableMeans_ActivitySubject'.
-In order to calculate the means of each variable for each activity and subject, an additional variable indicating 
+In order to calculate the means of each variable for each activity and subject, an additional character vector indicating 
 activity-subject-combinations is created (I call this variable 'factorCombinations' even though my code does not actually convert 
-the activity and subject variables into factors (not necessary). The new variable 'factorCombination' is then converted into a factor. 
+the activity and subject vectors into factors (not necessary). The new vector 'factorCombination' is then converted into a factor. 
 This factor 'factorCombination' is then used to take the mean for every activity-subject combination of any given variable by using 
 'tapply'. Since we have many variables the code loops through all the variables. 
 
