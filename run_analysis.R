@@ -1,7 +1,7 @@
 
 # First set your working directory. Please adapt the root directory accordingly depending on the computer and working directory that you are currently using. 
 
-WorkingDir <- "/Documents/Coursera_DataScience/GettingCleaningData/Assignment/"
+WorkingDir <- "/Documents/Coursera_DataScience/GettingCleaningData/"
 
 setwd(WorkingDir)
 
@@ -15,7 +15,7 @@ folderName <- "UCI_HAR_Dataset/"
 
 # Load the needed data. Please adapt the following command depending on the folder name you are using: 
 
-
+activity_labels <- read.table(paste0(WorkingDir, folderName, "activity_labels.txt"))
 
 x_train <- read.table(paste0(WorkingDir, folderName, "train/X_train.txt"))
 
@@ -119,9 +119,8 @@ dim(test_set)
 head(colnames(test_set))
 
 
-# Create vectors of label names for both training_set and test_set: 
+# Create vectors of activity label names for both training_set and test_set: 
 
-activity_labels <- read.table(paste0(WorkingDir, folderName, "activity_labels.txt"))
 
 colnames(activity_labels) <- c("label", "activity")
 
@@ -254,82 +253,6 @@ dim(TrainTest_MeanStd_Complete)
 colnames(TrainTest_MeanStd_Complete)
 tail(colnames(TrainTest_MeanStd_Complete))
 head(colnames(TrainTest_MeanStd_Complete))
-
-
-
-#------------------------------------------------------------------------------
-#------------------------------------------------------------------------------
-
-class(TrainTest_MeanStd_Complete$subject)
-unique(TrainTest_MeanStd_Complete$subject)
-sort(unique(TrainTest_MeanStd_Complete$subject))
-
-head(TrainTest_MeanStd_Complete$subject, n = 300)
-TrainTest_MeanStd_Complete$subject[300:400]
-
-head(TrainTest_MeanStd_Complete$y_label)
-unique(TrainTest_MeanStd_Complete$y_label)
-class(TrainTest_MeanStd_Complete$y_label)
-
-class(TrainTest_MeanStd_Complete$activity)
-unique(TrainTest_MeanStd_Complete$activity)
-
-
-# Convert 'subject' and 'activity' into factor variables: 
-
-TrainTest_MeanStd_Complete$activity <- factor(TrainTest_MeanStd_Complete$activity, levels = unique(TrainTest_MeanStd_Complete$activity))
-
-TrainTest_MeanStd_Complete$subject <- factor(TrainTest_MeanStd_Complete$subject, levels = sort(unique(TrainTest_MeanStd_Complete$subject)))
-
-class(TrainTest_MeanStd_Complete$activity)
-class(TrainTest_MeanStd_Complete$subject)
-
-
-head(select(TrainTest_MeanStd_Complete, subject, activity), n = 50)
-
-dim(TrainTest_MeanStd_Complete)
-
-factorCombinations <- matrix(rep(0, length(levels(TrainTest_MeanStd_Complete$activity))*length(levels(TrainTest_MeanStd_Complete$subject))), nrow = length(levels(TrainTest_MeanStd_Complete$subject)),ncol = length(levels(TrainTest_MeanStd_Complete$activity)))
-dim(factorCombinations)
-factorCombinations
-
-
-# Creating list with sublist for all factor combinations: 
-
-n_activities <- length(levels(TrainTest_MeanStd_Complete$activity))
-
-n_subjects <- length(levels(TrainTest_MeanStd_Complete$subject))
-
-factorCombinations <- list()
-
-for(i in 1:n_activities){
-	factorCombinations[[i]] <- list()
-	for(j in 1:n_subjects){
-		factorCombinations[[i]][[j]] <- list()
-	}
-	
-}
-
-
-
-
-
-head(TrainTest_MeanStd_Complete$subject == levels(TrainTest_MeanStd_Complete$subject)[1] & TrainTest_MeanStd_Complete$activity == levels(TrainTest_MeanStd_Complete$activity)[1])
-
-which(TrainTest_MeanStd_Complete$subject == levels(TrainTest_MeanStd_Complete$subject)[1] & TrainTest_MeanStd_Complete$activity == levels(TrainTest_MeanStd_Complete$activity)[1])
-
-
-for(i in 1:n_activities){
-	for(j in 1:n_subjects){
-factorCombinations[[i]][[j]] <- which(TrainTest_MeanStd_Complete$activity == levels(TrainTest_MeanStd_Complete$activity)[i] & TrainTest_MeanStd_Complete$subject == levels(TrainTest_MeanStd_Complete$subject)[j])
-
-		}
-	}
-
-factorCombinations
-
-length(factorCombinations)
-str(factorCombinations)
 
 
 
