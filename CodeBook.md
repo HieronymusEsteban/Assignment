@@ -110,7 +110,7 @@ are then added and the data frame is renamed 'TrainTest_MeanStd_Complete'.
 TrainTest_MeanStd_Complete contains several data points for every variable-subject-activity combination. These data can thus be 
 summarized by taking the mean value for every such combination and storing it in a new data frame 'VariableMeans_ActivitySubject'.
 In order to calculate the means of each variable for each activity and subject, an additional character vector indicating 
-activity-subject-combinations is created (I call this variable 'factorCombinations' even though my code does not actually convert 
+activity-subject-combinations is created (I call this vector 'factorCombinations' even though my code does not actually convert 
 the activity and subject vectors into factors (not necessary). The new vector 'factorCombination' is then converted into a factor. 
 This factor 'factorCombination' is then used to take the mean for every activity-subject combination of any given variable by using 
 'tapply'. Since we have many variables the code loops through all the variables. 
