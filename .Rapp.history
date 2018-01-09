@@ -163,7 +163,6 @@ dim(Data_TrainingAndTest)
 dim(training_set)[1] + dim(test_set)[1]
 dim(features)
 head(features)
-head(features)
 head(features, n = 20)
 grep("De", "Depp")
 grep("De", "papDepp")
@@ -402,8 +401,6 @@ features %>% gsub("\\()", "") -> featurestest
 gsub("\\()", "", features) -> featurestest
 featuresSemiClean <- gsub("\\()", "", features)#
 features_Clean <- gsub("\\-", "_", featuresSemiClea
-featuresSemiClean <- gsub("\\()", "", features)#
-features_Clean <- gsub("\\-", "_", featuresSemiClean)
 featuresSemiClean <- gsub("\\()", "", features)#
 features_Clean <- gsub("\\-", "_", featuresSemiClean)
 features

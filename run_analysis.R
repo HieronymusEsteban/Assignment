@@ -394,8 +394,26 @@ tail(colnames(VariableMeans_ActivitySubject))
 length(colnames(VariableMeans_ActivitySubject))
 
 
-# Get rid of the empty y_label column: 
-VariableMeans_ActivitySubject$y_label <- NULL
+# Convert the vector 'VariableMeans_ActivitySubject$subject' into a factor (makes reviewing the data frame a little easier): 
+
+VariableMeans_ActivitySubject$subject <- factor(VariableMeans_ActivitySubject$subject, levels = unique(sort(as.numeric(VariableMeans_ActivitySubject$subject))))
+
+
+VariableMeans_ActivitySubject$y_label
+
+# Regenerate the entries for the y_labels column: 
+
+for(i in 1:dim(activity_labels)[1]){
+	VariableMeans_ActivitySubject$y_label[VariableMeans_ActivitySubject$activity == activity_labels[i, 2]] <- activity_labels[i, 1]
+	
+}
+
+select(VariableMeans_ActivitySubject, activity, y_label)
+
+class(VariableMeans_ActivitySubject$y_label)
+
+VariableMeans_ActivitySubject$y_label <- factor(VariableMeans_ActivitySubject$y_label, unique(VariableMeans_ActivitySubject$y_label))
+
 
 
 # Have a look to check if the subject and activity columns match the factorCombinations column: 
